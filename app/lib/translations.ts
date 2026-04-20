@@ -3,6 +3,17 @@ export type Lang = 'fr' | 'nl' | 'en';
 export const T = {
   fr: {
     nav: { home: 'Accueil', about: 'À propos', piano: 'Cours de piano', awakening: 'Éveil musical', theory: 'Cours de solfège', transcription: 'Transcription', pricing: 'Tarifs', contact: 'Contact' },
+    ui: {
+      footerNavigation: 'Navigation',
+      homepageLinkLabel: 'Retour à l’accueil',
+      mobileMenuLabel: 'Ouvrir le menu de navigation',
+      switchLanguageLabel: 'Changer la langue vers',
+      learningTitle: 'Ce que vous apprendrez',
+      portraitAlt: 'Portrait d’Ivana Mailleux',
+      homePortraitAlt: 'Ivana Mailleux, professeure de piano à Rixensart',
+      copyright: 'Ivana Mailleux, Cours de Piano à Rixensart',
+      structuredDataDescription: 'Cours de piano, solfège, éveil musical et transcription musicale à Rixensart.',
+    },
     home: {
       heroTitle: 'Cours de Piano à Rixensart', heroSubtitle: 'Brabant-Wallon · Professeure passionnée',
       heroDesc: 'Découvrez la joie de la musique avec Ivana Mailleux ! Piano, solfège et éveil musical pour enfants et adultes.',
@@ -73,6 +84,17 @@ export const T = {
   },
   nl: {
     nav: { home: 'Home', about: 'Over mij', piano: 'Pianolessen', awakening: 'Muzikale ontdekking', theory: 'Solfège', transcription: 'Transcriptie', pricing: 'Prijzen', contact: 'Contact' },
+    ui: {
+      footerNavigation: 'Navigatie',
+      homepageLinkLabel: 'Ga naar de homepagina',
+      mobileMenuLabel: 'Open het navigatiemenu',
+      switchLanguageLabel: 'Verander de taal naar',
+      learningTitle: 'Wat je zult leren',
+      portraitAlt: 'Portret van Ivana Mailleux',
+      homePortraitAlt: 'Ivana Mailleux, pianolerares in Rixensart',
+      copyright: 'Ivana Mailleux, Pianolessen in Rixensart',
+      structuredDataDescription: 'Pianolessen, solfège, muzikale ontdekking en transcripties in Rixensart.',
+    },
     home: {
       heroTitle: 'Pianolessen in Rixensart', heroSubtitle: 'Brabant-Wallon · Gepassioneerde lerares',
       heroDesc: 'Ontdek de vreugde van muziek met Ivana Mailleux! Piano, solfège en muzikale ontdekking voor kinderen en volwassenen.',
@@ -143,6 +165,17 @@ export const T = {
   },
   en: {
     nav: { home: 'Home', about: 'About', piano: 'Piano Lessons', awakening: 'Musical Awakening', theory: 'Music Theory', transcription: 'Transcription', pricing: 'Pricing', contact: 'Contact' },
+    ui: {
+      footerNavigation: 'Navigation',
+      homepageLinkLabel: 'Go to the homepage',
+      mobileMenuLabel: 'Open the navigation menu',
+      switchLanguageLabel: 'Switch language to',
+      learningTitle: 'What you will learn',
+      portraitAlt: 'Portrait of Ivana Mailleux',
+      homePortraitAlt: 'Ivana Mailleux, piano teacher in Rixensart',
+      copyright: 'Ivana Mailleux, Piano Lessons in Rixensart',
+      structuredDataDescription: 'Piano lessons, music theory, musical awakening and transcription in Rixensart.',
+    },
     home: {
       heroTitle: 'Piano Lessons in Rixensart', heroSubtitle: 'Brabant-Wallon · Passionate Teacher',
       heroDesc: 'Discover the joy of music with Ivana Mailleux! Piano, music theory and musical awakening for children and adults.',
