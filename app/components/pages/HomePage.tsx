@@ -203,6 +203,20 @@ export default function HomePage({ lang }: HomePageProps) {
         </div>
       </section>
 
+      <section style={{ maxWidth: 1100, margin: '0 auto 80px', padding: '0 24px' }}>
+        <div style={{ background: 'white', borderRadius: 28, padding: '40px 36px', boxShadow: '0 8px 32px rgba(0,0,0,0.06)' }}>
+          <h2 style={{ fontFamily: "'Bubblegum Sans', cursive", fontSize: 34, color: '#333', marginBottom: 18 }}>
+            {home.seoSectionTitle}
+          </h2>
+          <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: 17, color: '#555', lineHeight: 1.75, marginBottom: 16 }}>
+            {home.seoParagraph1}
+          </p>
+          <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: 17, color: '#555', lineHeight: 1.75, margin: 0 }}>
+            {home.seoParagraph2}
+          </p>
+        </div>
+      </section>
+
       <section style={{ background: '#1a1a2e', padding: '64px 24px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <h2

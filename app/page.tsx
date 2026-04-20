@@ -121,7 +121,8 @@ function CurrentPage({ lang, page }: { lang: Lang; page: PageKey }) {
 function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
   const pageCopy = getPageCopy(lang, page);
   const canonical = buildCanonicalUrl(lang, page);
-  const ui = T[lang].ui;
+  const translations = T[lang];
+  const ui = translations.ui;
 
   const localBusiness = {
     '@context': 'https://schema.org',
@@ -150,6 +151,50 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     ],
   };
 
+  const serviceSchemaByPage: Partial<Record<PageKey, Record<string, unknown>>> = {
+    piano: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.piano.title,
+      description: translations.piano.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.piano.title,
+      offers: {
+        '@type': 'Offer',
+        url: canonical,
+        availability: 'https://schema.org/InStock',
+      },
+    },
+    awakening: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.awakening.title,
+      description: translations.awakening.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.awakening.title,
+    },
+    theory: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.theory.title,
+      description: translations.theory.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.theory.title,
+    },
+    transcription: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.transcription.title,
+      description: translations.transcription.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.transcription.title,
+    },
+  };
+
   const webPage = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -171,6 +216,9 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }} />
+      {serviceSchemaByPage[page] ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchemaByPage[page]) }} />
+      ) : null}
     </>
   );
 }

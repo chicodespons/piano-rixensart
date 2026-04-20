@@ -17,6 +17,15 @@ export default function MusicalBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotion.matches) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
     const colors = ['#f4d03f', '#2e7d32', '#ec407a', '#42a5f5', '#ff9800'];
     const types: Note['type'][] = ['whole', 'quarter', 'eighth'];
 

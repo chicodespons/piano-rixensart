@@ -28,6 +28,9 @@ export const T = {
       inclusiveDesc: 'Après une spécialisation en musicothérapie et une formation en braille musical, j\'accueille avec plaisir les élèves aveugles, malvoyants et aux besoins spécifiques.',
       meetTitle: 'Rencontrez Ivana', meetDesc: 'Pianiste de formation classique, professeure passionnée et musicienne aux multiples projets.',
       meetBtn: 'En savoir plus →', pricingPreviewTitle: 'Aperçu des tarifs', pricingBtn: 'Voir tous les tarifs →',
+      seoSectionTitle: 'Cours de piano à Rixensart pour enfants et adultes',
+      seoParagraph1: 'Ivana Mailleux propose des cours de piano à Rixensart pour enfants, adolescents et adultes dans un cadre bienveillant, créatif et structuré. Les leçons s’adaptent au niveau, au rythme et aux objectifs de chaque élève.',
+      seoParagraph2: 'Que vous cherchiez une professeure de piano à Rixensart, un accompagnement en solfège, un éveil musical pour votre enfant ou une transcription musicale sur mesure, le site présente une offre claire, multilingue et facile à explorer.',
       learnMore: 'En savoir plus →'
     },
     about: {
@@ -80,7 +83,9 @@ export const T = {
       namePh: 'Votre nom et prénom', phonePh: '+32 ...', emailPh: 'votre@email.com', messagePh: 'Dites-moi ce que vous recherchez...',
       subjects: ['Cours de piano', 'Éveil musical', 'Cours de solfège', 'Transcription musicale', 'Autre'],
       submitBtn: 'Envoyer le message', successMsg: 'Merci ! Votre message a bien été envoyé. Je vous répondrai très bientôt ! 🎵',
-      required: '* Champs obligatoires'
+      required: '* Champs obligatoires',
+      helperTitle: 'Formulaire prêt pour une future connexion email',
+      helperText: 'Le formulaire est déjà structuré pour être relié plus tard à un service email ou à une server action, sans changer l’expérience utilisateur.'
     }
   },
   nl: {
@@ -110,6 +115,9 @@ export const T = {
       inclusiveDesc: 'Gespecialiseerd in muziektherapie en opgeleid in muzikaal Braille, verwelkom ik blinde, slechtziende leerlingen en leerlingen met speciale noden.',
       meetTitle: 'Ontmoet Ivana', meetDesc: 'Klassiek geschoold pianiste, gepassioneerde lerares en muzikante bij diverse projecten.',
       meetBtn: 'Meer weten →', pricingPreviewTitle: 'Prijsoverzicht', pricingBtn: 'Alle prijzen bekijken →',
+      seoSectionTitle: 'Pianolessen in Rixensart voor kinderen en volwassenen',
+      seoParagraph1: 'Ivana Mailleux geeft pianolessen in Rixensart voor kinderen, tieners en volwassenen in een warme, creatieve en gestructureerde leeromgeving. Elke les wordt afgestemd op het niveau, tempo en doel van de leerling.',
+      seoParagraph2: 'Zoekt u een pianolerares in Rixensart, begeleiding in solfège, muzikale ontdekking voor uw kind of een transcriptie op maat, dan biedt deze meertalige site een duidelijk en toegankelijk overzicht van het aanbod.',
       learnMore: 'Meer weten →'
     },
     about: {
@@ -162,7 +170,9 @@ export const T = {
       namePh: 'Uw naam en voornaam', phonePh: '+32 ...', emailPh: 'uw@email.com', messagePh: 'Vertel me wat u zoekt...',
       subjects: ['Pianolessen', 'Muzikale ontdekking', 'Solfège', 'Muzikale transcriptie', 'Andere'],
       submitBtn: 'Bericht verzenden', successMsg: 'Bedankt! Uw bericht is ontvangen. Ik neem zo snel mogelijk contact op! 🎵',
-      required: '* Verplichte velden'
+      required: '* Verplichte velden',
+      helperTitle: 'Formulier klaar voor latere e-mailkoppeling',
+      helperText: 'Het formulier is al zo opgebouwd dat het later eenvoudig kan worden gekoppeld aan e-mailverzending of een server action, zonder de gebruikerservaring te wijzigen.'
     }
   },
   en: {
@@ -192,6 +202,9 @@ export const T = {
       inclusiveDesc: 'Specialised in music therapy and trained in musical Braille, I warmly welcome blind, partially-sighted and students with special needs.',
       meetTitle: 'Meet Ivana', meetDesc: 'Classically trained pianist, passionate teacher and musician across many projects.',
       meetBtn: 'Learn more →', pricingPreviewTitle: 'Pricing Overview', pricingBtn: 'See all pricing →',
+      seoSectionTitle: 'Piano lessons in Rixensart for children and adults',
+      seoParagraph1: 'Ivana Mailleux offers piano lessons in Rixensart for children, teenagers and adults in a warm, creative and structured learning environment. Lessons are tailored to each student’s level, pace and goals.',
+      seoParagraph2: 'Whether you are looking for a piano teacher in Rixensart, music theory support, musical awakening classes for your child or bespoke transcription work, this multilingual site gives a clear overview of the available services.',
       learnMore: 'Learn more →'
     },
     about: {
@@ -244,7 +257,9 @@ export const T = {
       namePh: 'Your full name', phonePh: '+32 ...', emailPh: 'your@email.com', messagePh: 'Tell me what you\'re looking for...',
       subjects: ['Piano Lessons', 'Musical Awakening', 'Music Theory', 'Musical Transcription', 'Other'],
       submitBtn: 'Send Message', successMsg: 'Thank you! Your message has been sent. I\'ll get back to you very soon! 🎵',
-      required: '* Required fields'
+      required: '* Required fields',
+      helperTitle: 'Form ready for future email integration',
+      helperText: 'The form is already structured so it can later be connected to email delivery or a server action without changing the user experience.'
     }
   }
 } as const;

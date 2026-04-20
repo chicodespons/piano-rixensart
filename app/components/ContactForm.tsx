@@ -17,6 +17,8 @@ interface ContactFormCopy {
   submitBtn: string;
   successMsg: string;
   required: string;
+  helperTitle: string;
+  helperText: string;
 }
 
 interface ContactFormProps {
@@ -43,6 +45,7 @@ export default function ContactForm({ copy }: ContactFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, boolean>>>({});
+  const futureAction = '/api/contact';
 
   const setField = (field: keyof FormState, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -113,7 +116,20 @@ export default function ContactForm({ copy }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={submit} noValidate>
+    <div>
+      <div
+        style={{
+          background: '#fff8e1',
+          borderRadius: 18,
+          padding: '18px 20px',
+          marginBottom: 24,
+          borderLeft: '4px solid #f4d03f',
+        }}
+      >
+        <h2 style={{ fontFamily: "'Bubblegum Sans', cursive", fontSize: 22, color: '#333', marginBottom: 8 }}>{copy.helperTitle}</h2>
+        <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: 15, color: '#555', lineHeight: 1.7, margin: 0 }}>{copy.helperText}</p>
+      </div>
+      <form onSubmit={submit} noValidate data-future-action={futureAction}>
       <div
         style={{
           display: 'grid',
@@ -128,6 +144,8 @@ export default function ContactForm({ copy }: ContactFormProps) {
           </label>
           <input
             id="name"
+            name="name"
+            autoComplete="name"
             value={form.name}
             onChange={(event) => setField('name', event.target.value)}
             placeholder={copy.namePh}
@@ -142,6 +160,8 @@ export default function ContactForm({ copy }: ContactFormProps) {
           </label>
           <input
             id="phone"
+            name="phone"
+            autoComplete="tel"
             value={form.phone}
             onChange={(event) => setField('phone', event.target.value)}
             placeholder={copy.phonePh}
@@ -157,7 +177,9 @@ export default function ContactForm({ copy }: ContactFormProps) {
         </label>
         <input
           id="email"
+          name="email"
           type="email"
+          autoComplete="email"
           value={form.email}
           onChange={(event) => setField('email', event.target.value)}
           placeholder={copy.emailPh}
@@ -172,6 +194,7 @@ export default function ContactForm({ copy }: ContactFormProps) {
         </label>
         <select
           id="subject"
+          name="subject"
           value={form.subject}
           onChange={(event) => setField('subject', event.target.value)}
           style={{ ...inputStyle(errors.subject), appearance: 'none', cursor: 'pointer' }}
@@ -190,6 +213,7 @@ export default function ContactForm({ copy }: ContactFormProps) {
         </label>
         <textarea
           id="message"
+          name="message"
           value={form.message}
           onChange={(event) => setField('message', event.target.value)}
           placeholder={copy.messagePh}
@@ -201,6 +225,7 @@ export default function ContactForm({ copy }: ContactFormProps) {
       </div>
       <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: 13, color: '#999', marginBottom: 20 }}>{copy.required}</p>
       <CTAButton label={copy.submitBtn} onClick={() => undefined} color="#ec407a" buttonType="submit" />
-    </form>
+      </form>
+    </div>
   );
 }
