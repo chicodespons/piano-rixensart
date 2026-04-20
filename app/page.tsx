@@ -18,6 +18,7 @@ import {
   getPageCopy,
   isLang,
   isPageKey,
+  LANGUAGE_LOCALES,
   SITE_NAME,
   SITE_URL,
 } from './lib/site-data';
@@ -61,7 +62,7 @@ export async function generateMetadata({ searchParams }: HomePageProps): Promise
       title: buildPageTitle(lang, page),
       description: buildPageDescription(lang, page),
       siteName: SITE_NAME,
-      locale: lang,
+      locale: LANGUAGE_LOCALES[lang],
       images: [
         {
           url: BUSINESS_DETAILS.image,
@@ -155,7 +156,7 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     name: pageCopy.title,
     description: pageCopy.description,
     url: canonical,
-    inLanguage: lang,
+    inLanguage: LANGUAGE_LOCALES[lang],
     isPartOf: {
       '@type': 'WebSite',
       name: SITE_NAME,

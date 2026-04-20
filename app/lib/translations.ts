@@ -13,6 +13,7 @@ export const T = {
       homePortraitAlt: 'Ivana Mailleux, professeure de piano à Rixensart',
       copyright: 'Ivana Mailleux, Cours de Piano à Rixensart',
       structuredDataDescription: 'Cours de piano, solfège, éveil musical et transcription musicale à Rixensart.',
+      brandText: 'Ivana Mailleux',
     },
     home: {
       heroTitle: 'Cours de Piano à Rixensart', heroSubtitle: 'Brabant-Wallon · Professeure passionnée',
@@ -94,6 +95,7 @@ export const T = {
       homePortraitAlt: 'Ivana Mailleux, pianolerares in Rixensart',
       copyright: 'Ivana Mailleux, Pianolessen in Rixensart',
       structuredDataDescription: 'Pianolessen, solfège, muzikale ontdekking en transcripties in Rixensart.',
+      brandText: 'Ivana Mailleux',
     },
     home: {
       heroTitle: 'Pianolessen in Rixensart', heroSubtitle: 'Brabant-Wallon · Gepassioneerde lerares',
@@ -175,6 +177,7 @@ export const T = {
       homePortraitAlt: 'Ivana Mailleux, piano teacher in Rixensart',
       copyright: 'Ivana Mailleux, Piano Lessons in Rixensart',
       structuredDataDescription: 'Piano lessons, music theory, musical awakening and transcription in Rixensart.',
+      brandText: 'Ivana Mailleux',
     },
     home: {
       heroTitle: 'Piano Lessons in Rixensart', heroSubtitle: 'Brabant-Wallon · Passionate Teacher',

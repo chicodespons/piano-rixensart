@@ -135,6 +135,9 @@ export function CTAButton({
   buttonType = 'button',
 }: CTAButtonProps) {
   const [hover, setHover] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const transform = pressed ? 'scale(0.97) translateY(1px)' : hover ? 'scale(1.05) translateY(-2px)' : 'scale(1)';
+  const boxShadow = pressed ? '0 2px 8px rgba(0,0,0,0.16)' : hover ? '0 8px 24px rgba(0,0,0,0.22)' : '0 4px 14px rgba(0,0,0,0.14)';
   const baseStyle = {
     display: 'inline-flex',
     alignItems: 'center',
@@ -149,16 +152,21 @@ export function CTAButton({
     fontWeight: 600,
     background: color,
     color: textColor,
-    boxShadow: hover ? '0 8px 24px rgba(0,0,0,0.22)' : '0 4px 14px rgba(0,0,0,0.14)',
-    transform: hover ? 'scale(1.05) translateY(-2px)' : 'scale(1)',
-    transition: 'all 0.2s',
+    boxShadow,
+    transform,
+    transition: 'all 0.16s ease',
+    willChange: 'transform, box-shadow',
   } as const;
 
   if (href) {
     return (
       <NavigationLink
         href={href}
-        onClick={onClick ? () => onClick() : undefined}
+        onClick={() => {
+          setPressed(true);
+          window.setTimeout(() => setPressed(false), 140);
+          onClick?.();
+        }}
         style={baseStyle}
       >
         {label}
@@ -171,7 +179,18 @@ export function CTAButton({
       type={buttonType}
       onClick={onClick}
       onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseLeave={() => {
+        setHover(false);
+        setPressed(false);
+      }}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          setPressed(true);
+        }
+      }}
+      onKeyUp={() => setPressed(false)}
       style={baseStyle}
     >
       {label}
