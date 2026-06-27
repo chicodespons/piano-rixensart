@@ -103,8 +103,6 @@ function CurrentPage({ lang, page }: { lang: Lang; page: PageKey }) {
       return <AboutPage lang={lang} />;
     case 'piano':
       return <ServicePage lang={lang} pageKey="piano" color="#ec407a" emoji="🎹" />;
-    case 'awakening':
-      return <ServicePage lang={lang} pageKey="awakening" color="#ff9800" emoji="🌟" />;
     case 'theory':
       return <ServicePage lang={lang} pageKey="theory" color="#42a5f5" emoji="🎼" />;
     case 'transcription':
@@ -145,7 +143,6 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     knowsLanguage: ['fr', 'nl', 'en'],
     offers: [
       T[lang].piano.title,
-      T[lang].awakening.title,
       T[lang].theory.title,
       T[lang].transcription.title,
     ],
@@ -165,15 +162,6 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
         url: canonical,
         availability: 'https://schema.org/InStock',
       },
-    },
-    awakening: {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: translations.awakening.title,
-      description: translations.awakening.desc,
-      provider: { '@id': `${SITE_URL}/#music-school` },
-      areaServed: BUSINESS_DETAILS.areaServed,
-      serviceType: translations.awakening.title,
     },
     theory: {
       '@context': 'https://schema.org',
