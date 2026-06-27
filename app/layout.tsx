@@ -7,16 +7,19 @@ const bubblegumSans = Bubblegum_Sans({
   weight: '400',
   subsets: ['latin'],
   variable: '--font-bubblegum',
+  display: 'swap',
 });
 
 const fredoka = Fredoka({
   subsets: ['latin'],
   variable: '--font-fredoka',
+  display: 'swap',
 });
 
 const quicksand = Quicksand({
   subsets: ['latin'],
   variable: '--font-quicksand',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -49,18 +52,23 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/icon.svg',
+    apple: '/icon.svg',
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang?: string }>;
 }>) {
+  const resolvedParams = await params;
+  const htmlLang = resolvedParams?.lang ?? 'fr';
+
   return (
-    <html lang="fr" className={`${bubblegumSans.variable} ${fredoka.variable} ${quicksand.variable}`}>
+    <html lang={htmlLang} className={`${bubblegumSans.variable} ${fredoka.variable} ${quicksand.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -18,6 +18,7 @@ import {
   getPageCopy,
   isLang,
   isPageKey,
+  LANGUAGE_LOCALES,
   SITE_NAME,
   SITE_URL,
 } from './lib/site-data';
@@ -61,7 +62,7 @@ export async function generateMetadata({ searchParams }: HomePageProps): Promise
       title: buildPageTitle(lang, page),
       description: buildPageDescription(lang, page),
       siteName: SITE_NAME,
-      locale: lang,
+      locale: LANGUAGE_LOCALES[lang],
       images: [
         {
           url: BUSINESS_DETAILS.image,
@@ -102,8 +103,6 @@ function CurrentPage({ lang, page }: { lang: Lang; page: PageKey }) {
       return <AboutPage lang={lang} />;
     case 'piano':
       return <ServicePage lang={lang} pageKey="piano" color="#ec407a" emoji="🎹" />;
-    case 'awakening':
-      return <ServicePage lang={lang} pageKey="awakening" color="#ff9800" emoji="🌟" />;
     case 'theory':
       return <ServicePage lang={lang} pageKey="theory" color="#42a5f5" emoji="🎼" />;
     case 'transcription':
@@ -120,7 +119,8 @@ function CurrentPage({ lang, page }: { lang: Lang; page: PageKey }) {
 function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
   const pageCopy = getPageCopy(lang, page);
   const canonical = buildCanonicalUrl(lang, page);
-  const ui = T[lang].ui;
+  const translations = T[lang];
+  const ui = translations.ui;
 
   const localBusiness = {
     '@context': 'https://schema.org',
@@ -143,10 +143,44 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     knowsLanguage: ['fr', 'nl', 'en'],
     offers: [
       T[lang].piano.title,
-      T[lang].awakening.title,
       T[lang].theory.title,
       T[lang].transcription.title,
     ],
+  };
+
+  const serviceSchemaByPage: Partial<Record<PageKey, Record<string, unknown>>> = {
+    piano: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.piano.title,
+      description: translations.piano.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.piano.title,
+      offers: {
+        '@type': 'Offer',
+        url: canonical,
+        availability: 'https://schema.org/InStock',
+      },
+    },
+    theory: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.theory.title,
+      description: translations.theory.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.theory.title,
+    },
+    transcription: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: translations.transcription.title,
+      description: translations.transcription.desc,
+      provider: { '@id': `${SITE_URL}/#music-school` },
+      areaServed: BUSINESS_DETAILS.areaServed,
+      serviceType: translations.transcription.title,
+    },
   };
 
   const webPage = {
@@ -155,7 +189,7 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     name: pageCopy.title,
     description: pageCopy.description,
     url: canonical,
-    inLanguage: lang,
+    inLanguage: LANGUAGE_LOCALES[lang],
     isPartOf: {
       '@type': 'WebSite',
       name: SITE_NAME,
@@ -170,6 +204,9 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }} />
+      {serviceSchemaByPage[page] ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchemaByPage[page]) }} />
+      ) : null}
     </>
   );
 }

@@ -4,6 +4,11 @@ export const SITE_URL = 'https://piano-rixensart.be';
 export const SITE_NAME = 'Piano Rixensart';
 export const DEFAULT_LANGUAGE: Lang = 'fr';
 export const DEFAULT_PAGE: PageKey = 'home';
+export const LANGUAGE_LOCALES: Record<Lang, string> = {
+  fr: 'fr-BE',
+  nl: 'nl-BE',
+  en: 'en-BE',
+};
 
 export const SUPPORTED_LANGUAGES: Lang[] = ['fr', 'nl', 'en'];
 
@@ -145,7 +150,10 @@ export function buildKeywords(lang: Lang) {
 }
 
 export function buildAlternateLanguages(page: PageKey) {
-  return Object.fromEntries(
-    SUPPORTED_LANGUAGES.map((lang) => [lang, buildCanonicalUrl(lang, page)]),
-  );
+  return {
+    ...Object.fromEntries(
+      SUPPORTED_LANGUAGES.map((lang) => [LANGUAGE_LOCALES[lang], buildCanonicalUrl(lang, page)]),
+    ),
+    'x-default': buildCanonicalUrl(DEFAULT_LANGUAGE, page),
+  };
 }
