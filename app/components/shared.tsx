@@ -77,7 +77,7 @@ export function PageHeader({ title, subtitle, color, emoji, textColor }: PageHea
   );
 }
 
-export function FeatureList({ features, color }: { features: readonly string[]; color: string }) {
+export function FeatureList({ features, color, checkColor = 'white' }: { features: readonly string[]; color: string; checkColor?: string }) {
   return (
     <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
       {features.map((feature, index) => (
@@ -99,7 +99,7 @@ export function FeatureList({ features, color }: { features: readonly string[]; 
               height: 28,
               borderRadius: '50%',
               background: color,
-              color: 'white',
+              color: checkColor,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

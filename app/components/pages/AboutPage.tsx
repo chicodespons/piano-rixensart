@@ -20,7 +20,12 @@ export default function AboutPage({ lang }: AboutPageProps) {
 
   return (
     <div>
-      <PageHeader title={about.title} color="#ec407a" emoji="🎹" />
+      <PageHeader
+        title={about.title}
+        color="#f4d03f"
+        textColor="#333"
+        emoji="🎹"
+      />
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 24px" }}>
         <div
           style={{
@@ -39,8 +44,8 @@ export default function AboutPage({ lang }: AboutPageProps) {
               style={{
                 borderRadius: "50%",
                 objectFit: "cover",
-                border: "6px solid #ec407a",
-                boxShadow: "0 10px 40px rgba(236,64,122,0.25)",
+                border: "6px solid #f4d03f",
+                boxShadow: "0 10px 40px rgba(244,208,63,0.4)",
                 marginBottom: 32,
               }}
             />
@@ -58,13 +63,17 @@ export default function AboutPage({ lang }: AboutPageProps) {
                 style={{
                   fontFamily: "'Bubblegum Sans', cursive",
                   fontSize: 22,
-                  color: "#ec407a",
+                  color: "#333",
                   marginBottom: 14,
                 }}
               >
                 ⭐ {about.specialtiesTitle}
               </h2>
-              <FeatureList features={about.specialties} color="#ec407a" />
+              <FeatureList
+                features={about.specialties}
+                color="#f4d03f"
+                checkColor="#333"
+              />
             </div>
           </div>
           <div>
@@ -86,7 +95,8 @@ export default function AboutPage({ lang }: AboutPageProps) {
               <CTAButton
                 label={contact.submitBtn}
                 href={`/?${params.toString()}`}
-                color="#ec407a"
+                color="#f4d03f"
+                textColor="#333"
               />
             </div>
           </div>

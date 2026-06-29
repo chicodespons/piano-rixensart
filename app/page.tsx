@@ -131,7 +131,6 @@ function StructuredData({ lang, page }: { lang: Lang; page: PageKey }) {
     description: ui.structuredDataDescription,
     url: SITE_URL,
     image: `${SITE_URL}${BUSINESS_DETAILS.image}`,
-    telephone: BUSINESS_DETAILS.telephone,
     email: BUSINESS_DETAILS.email,
     areaServed: BUSINESS_DETAILS.areaServed,
     address: {

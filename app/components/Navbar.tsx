@@ -62,7 +62,7 @@ export default function Navbar({ lang, page }: NavbarProps) {
           </NavigationLink>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexWrap: 'wrap' }} className="desk-nav">
-            {NAV_KEYS.map((key, index) => {
+            {NAV_KEYS.map((key) => {
               const isActive = page === key;
 
               return (
@@ -78,8 +78,8 @@ export default function Navbar({ lang, page }: NavbarProps) {
                     fontFamily: 'Fredoka, sans-serif',
                     fontSize: 13.5,
                     fontWeight: isActive ? 600 : 400,
-                    background: isActive ? NAV_COLORS[index] : '#f0f0f0',
-                    color: isActive ? NAV_TEXT[index] : '#555',
+                    background: isActive ? NAV_COLORS[key] : '#f0f0f0',
+                    color: isActive ? NAV_TEXT[key] : '#555',
                     boxShadow: isActive ? '0 3px 10px rgba(0,0,0,0.18)' : 'none',
                     transition: 'all 0.18s',
                     transform: isActive ? 'scale(1.05)' : 'scale(1)',
@@ -118,7 +118,7 @@ export default function Navbar({ lang, page }: NavbarProps) {
             <div style={{ marginBottom: 10 }}>
               <LanguageSwitcher lang={lang} compact onChange={() => setOpen(false)} />
             </div>
-            {NAV_KEYS.map((key, index) => {
+            {NAV_KEYS.map((key) => {
               const isActive = page === key;
 
               return (
@@ -137,8 +137,8 @@ export default function Navbar({ lang, page }: NavbarProps) {
                     cursor: 'pointer',
                     fontFamily: 'Fredoka, sans-serif',
                     fontSize: 15,
-                    background: isActive ? NAV_COLORS[index] : '#f5f5f5',
-                    color: isActive ? NAV_TEXT[index] : '#444',
+                    background: isActive ? NAV_COLORS[key] : '#f5f5f5',
+                    color: isActive ? NAV_TEXT[key] : '#444',
                     fontWeight: 500,
                   }}
                 >

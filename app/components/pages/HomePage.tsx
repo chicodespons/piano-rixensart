@@ -201,28 +201,33 @@ export default function HomePage({ lang }: HomePageProps) {
                   padding: "28px 24px",
                   textAlign: "center",
                   color: plan.textColor,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                {plan.badge ? (
-                  <div
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 700,
-                      background: "rgba(255,255,255,0.25)",
-                      borderRadius: 20,
-                      padding: "3px 12px",
-                      display: "inline-block",
-                      marginBottom: 10,
-                      fontFamily: "Fredoka, sans-serif",
-                    }}
-                  >
-                    {plan.badge}
-                  </div>
-                ) : null}
+
+                {/* Name — reserves space for up to two lines */}
+                <div
+                  style={{
+                    fontFamily: "Fredoka, sans-serif",
+                    fontSize: 15,
+                    fontWeight: 600,
+                    minHeight: 40,
+                    lineHeight: 1.3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 6,
+                  }}
+                >
+                  {plan.name}
+                </div>
+
                 <div
                   style={{
                     fontFamily: "'Bubblegum Sans', cursive",
-                    fontSize: 44,
+                    fontSize: 40,
                   }}
                 >
                   {plan.price}
@@ -234,6 +239,7 @@ export default function HomePage({ lang }: HomePageProps) {
                     fontSize: 14,
                     marginTop: 6,
                     opacity: 0.85,
+                    minHeight: 40,
                   }}
                 >
                   {plan.slots}

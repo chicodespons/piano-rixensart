@@ -1,6 +1,6 @@
 import { T, type Lang, type PageKey } from './translations';
 
-export const SITE_URL = 'https://piano-rixensart.be';
+export const SITE_URL = 'https://pianorixensart.be';
 export const SITE_NAME = 'Piano Rixensart';
 export const DEFAULT_LANGUAGE: Lang = 'fr';
 export const DEFAULT_PAGE: PageKey = 'home';
@@ -16,7 +16,6 @@ export const PAGE_ORDER: PageKey[] = [
   'home',
   'about',
   'piano',
-  'awakening',
   'theory',
   'transcription',
   'pricing',
@@ -27,7 +26,6 @@ export const PAGE_ACCENT_COLORS: Record<PageKey, string> = {
   home: '#ec407a',
   about: '#ff9800',
   piano: '#ec407a',
-  awakening: '#f4d03f',
   theory: '#42a5f5',
   transcription: '#2e7d32',
   pricing: '#ef5350',
@@ -38,7 +36,6 @@ export const PAGE_TEXT_COLORS: Record<PageKey, string> = {
   home: 'white',
   about: 'white',
   piano: 'white',
-  awakening: '#333',
   theory: 'white',
   transcription: 'white',
   pricing: 'white',
@@ -53,8 +50,7 @@ export const LANGUAGE_LABELS: Record<Lang, string> = {
 
 export const BUSINESS_DETAILS = {
   name: 'Ivana Mailleux',
-  email: 'contact@piano-rixensart.be',
-  telephone: '+32 476 53 95 31',
+  email: 'info@pianorixensart.be',
   areaServed: 'Rixensart, Brabant-Wallon, Belgique',
   image: '/ivana.jpg',
 };
@@ -80,7 +76,6 @@ export function getPageCopy(lang: Lang, page: PageKey) {
         description: T[lang].about.bio.split('\n\n')[0],
       };
     case 'piano':
-    case 'awakening':
     case 'theory':
     case 'transcription':
       return {
