@@ -61,6 +61,9 @@ export default function HomePage({ lang }: HomePageProps) {
     return query ? `/?${query}` : "/";
   };
 
+  const servicesHref = `${getHref("home")}#services`;
+  // → "/#services" in FR, "/?lang=nl#services" in NL, "/?lang=en#services" in EN
+
   return (
     <div>
       <section
@@ -143,7 +146,7 @@ export default function HomePage({ lang }: HomePageProps) {
             />
             <CTAButton
               label={home.discoverBtn}
-              href={getHref("piano")}
+              href={servicesHref}
               color="#42a5f5"
             />
           </div>
@@ -151,7 +154,13 @@ export default function HomePage({ lang }: HomePageProps) {
       </section>
 
       <section
-        style={{ maxWidth: 1200, margin: "0 auto", padding: "72px 24px 40px" }}
+        id="services"
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "72px 24px 40px",
+          scrollMarginTop: 80, // offsets the sticky navbar (68px) so cards aren't hidden under it
+        }}
       >
         <div
           style={{
@@ -206,7 +215,6 @@ export default function HomePage({ lang }: HomePageProps) {
                   alignItems: "center",
                 }}
               >
-
                 {/* Name — reserves space for up to two lines */}
                 <div
                   style={{
@@ -232,6 +240,16 @@ export default function HomePage({ lang }: HomePageProps) {
                 >
                   {plan.price}
                   <span style={{ fontSize: 18 }}>{plan.unit}</span>
+                </div>
+                <div
+                  style={{
+                    fontFamily: "Fredoka, sans-serif",
+                    fontSize: 14,
+                    marginTop: 6,
+                    fontWeight: 600,
+                  }}
+                >
+                  📚 {plan.lessons}
                 </div>
                 <div
                   style={{

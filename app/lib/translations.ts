@@ -228,7 +228,7 @@ export const T = {
       about: "Over mij",
       piano: "Pianolessen",
       awakening: "Muzikale ontdekking",
-      theory: "Solfège",
+      theory: "Notenleer",
       transcription: "Transcriptie",
       pricing: "Prijzen",
       contact: "Contact",
@@ -243,7 +243,7 @@ export const T = {
       homePortraitAlt: "Ivana Mailleux, pianolerares in Rixensart",
       copyright: "Ivana Mailleux, Pianolessen in Rixensart",
       structuredDataDescription:
-        "Pianolessen, solfège, muzikale ontdekking en transcripties in Rixensart.",
+        "Pianolessen, notenleer, muzikale ontdekking en transcripties in Rixensart.",
       brandText: "Ivana Mailleux",
     },
     home: {
@@ -260,7 +260,7 @@ export const T = {
       awakeningTitle: "Muzikale ontdekking",
       awakeningDesc:
         "Voor kinderen van 4 tot 6 jaar. Speelse ontdekking van muziek.",
-      theoryTitle: "Solfège",
+      theoryTitle: "Notenleer",
       theoryDesc:
         "Ontwikkel uw gevoel voor ritme en leer muziek lezen en zingen.",
       transcriptionTitle: "Muzikale transcriptie",
@@ -303,7 +303,7 @@ export const T = {
     piano: {
       title: "Pianolessen",
       location: "📍 Rixensart, Brabant-Wallon",
-      desc: "Deze cursus is bedoeld voor alle muziekliefhebbers, jong en oud, van beginner tot gevorderd.\n\nAfhankelijk van de verwachtingen van de leerling, kunnen we klassiek piano studeren — waarbij solfège kan worden geïntegreerd — en/of een hedendaags repertoire aanpakken met stukken gekozen naar de smaak van de leerling.\n\nIedereen wordt aangemoedigd om een lijst met gewenste nummers voor te stellen. Deze kunnen eventueel aangepast wordenaan het niveau van de leerling.",
+      desc: "Deze cursus is bedoeld voor alle muziekliefhebbers, jong en oud, van beginner tot gevorderd.\n\nAfhankelijk van de verwachtingen van de leerling, kunnen we klassiek piano studeren — waarbij Notenleer kan worden geïntegreerd — en/of een hedendaags repertoire aanpakken met stukken gekozen naar de smaak van de leerling.\n\nIedereen wordt aangemoedigd om een lijst met gewenste nummers voor te stellen. Deze kunnen eventueel aangepast wordenaan het niveau van de leerling.",
       offerTitle: "Publiek",
       features: [
         "Kinderen vanaf 4 jaar",
@@ -331,7 +331,7 @@ export const T = {
       offerBtn: "Prijzen",
     },
     theory: {
-      title: "Solfège",
+      title: "Notenleer",
       subtitle: "Leer muziek lezen en zingen",
       location: "📍 Rixensart, Brabant-Wallon",
       desc: "Wilt u uw gevoel voor ritme ontwikkelen? Muziek leren lezen en zingen?\n\nWilt u de muzikale woordenschat verwerven om later een instrument te bespelen, of gewoon uit nieuwsgierigheid?\n\nWilt u aan een specifiek thema werken? Deze cursus is aanpasbaar aan uw behoeften. Hij kan ook dienen als inleiding of aanvulling op pianolessen.",
@@ -431,7 +431,7 @@ export const T = {
       messagePh: "Vertel me wat u zoekt...",
       subjects: [
         "Pianolessen",
-        "Solfège",
+        "Notenleer",
         "Muzikale transcriptie",
         "Andere",
       ],

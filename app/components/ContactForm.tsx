@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { CTAButton } from './shared';
+import { useEffect, useState } from "react";
+import { CTAButton } from "./shared";
+import Script from "next/script";
 
 interface ContactFormCopy {
   firstNameLbl: string;
@@ -36,12 +37,12 @@ interface FormState {
 }
 
 const INITIAL_FORM: FormState = {
-  firstName: '',
-  lastName: '',
-  phone: '',
-  email: '',
-  subject: '',
-  message: '',
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  subject: "",
+  message: "",
 };
 
 export default function ContactForm({ copy }: ContactFormProps) {
@@ -49,7 +50,23 @@ export default function ContactForm({ copy }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormState, boolean>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormState, boolean>>
+  >({});
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setTurnstileToken(token);
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).onTurnstileExpired = () => {
+      setTurnstileToken("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).turnstile?.reset();
+    };
+  }, []);
 
   const setField = (field: keyof FormState, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -68,6 +85,11 @@ export default function ContactForm({ copy }: ContactFormProps) {
   };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+    if (!turnstileToken) {
+      setSendError(true);
+      return;
+    }
+    
     event.preventDefault();
     const nextErrors = validate();
 
@@ -81,55 +103,58 @@ export default function ContactForm({ copy }: ContactFormProps) {
     setSending(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
 
       if (!response.ok) {
-        throw new Error('Request failed');
+        throw new Error("Request failed");
       }
 
       setSubmitted(true);
     } catch {
       setSendError(true);
+      setTurnstileToken("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).turnstile?.reset();
     } finally {
       setSending(false);
     }
   };
 
   const inputStyle = (hasError = false): React.CSSProperties => ({
-    width: '100%',
-    padding: '13px 16px',
+    width: "100%",
+    padding: "13px 16px",
     borderRadius: 12,
-    border: `2px solid ${hasError ? '#f44336' : '#e0e0e0'}`,
-    fontFamily: 'Fredoka, sans-serif',
+    border: `2px solid ${hasError ? "#f44336" : "#e0e0e0"}`,
+    fontFamily: "Fredoka, sans-serif",
     fontSize: 16,
-    outline: 'none',
-    boxSizing: 'border-box',
-    transition: 'border-color 0.2s',
-    background: 'white',
+    outline: "none",
+    boxSizing: "border-box",
+    transition: "border-color 0.2s",
+    background: "white",
   });
 
   const labelStyle: React.CSSProperties = {
-    fontFamily: 'Fredoka, sans-serif',
+    fontFamily: "Fredoka, sans-serif",
     fontSize: 15,
-    color: '#555',
-    display: 'block',
+    color: "#555",
+    display: "block",
     marginBottom: 6,
     fontWeight: 500,
   };
 
   if (submitted) {
     return (
-      <div style={{ textAlign: 'center', padding: '80px 24px' }}>
+      <div style={{ textAlign: "center", padding: "80px 24px" }}>
         <div style={{ fontSize: 80, marginBottom: 24 }}>🎵</div>
         <h2
           style={{
             fontFamily: "'Bubblegum Sans', cursive",
             fontSize: 36,
-            color: '#333',
+            color: "#333",
             marginBottom: 16,
           }}
         >
@@ -140,157 +165,207 @@ export default function ContactForm({ copy }: ContactFormProps) {
   }
 
   return (
-    <div>
-      <form onSubmit={submit} noValidate>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: 20,
-            marginBottom: 20,
-          }}
-        >
-          <div>
-            <label htmlFor="firstName" style={labelStyle}>
-              {copy.firstNameLbl}
-            </label>
-            <input
-              id="firstName"
-              name="firstName"
-              autoComplete="given-name"
-              value={form.firstName}
-              onChange={(event) => setField('firstName', event.target.value)}
-              placeholder={copy.firstNamePh}
-              style={inputStyle(errors.firstName)}
-              onFocus={(event) => (event.target.style.borderColor = '#42a5f5')}
-              onBlur={(event) => (event.target.style.borderColor = errors.firstName ? '#f44336' : '#e0e0e0')}
-            />
-          </div>
-          <div>
-            <label htmlFor="lastName" style={labelStyle}>
-              {copy.lastNameLbl}
-            </label>
-            <input
-              id="lastName"
-              name="lastName"
-              autoComplete="family-name"
-              value={form.lastName}
-              onChange={(event) => setField('lastName', event.target.value)}
-              placeholder={copy.lastNamePh}
-              style={inputStyle(errors.lastName)}
-              onFocus={(event) => (event.target.style.borderColor = '#42a5f5')}
-              onBlur={(event) => (event.target.style.borderColor = errors.lastName ? '#f44336' : '#e0e0e0')}
-            />
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: 20,
-            marginBottom: 20,
-          }}
-        >
-          <div>
-            <label htmlFor="phone" style={labelStyle}>
-              {copy.phoneLbl}
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              autoComplete="tel"
-              value={form.phone}
-              onChange={(event) => setField('phone', event.target.value)}
-              placeholder={copy.phonePh}
-              style={inputStyle(errors.phone)}
-              onFocus={(event) => (event.target.style.borderColor = '#42a5f5')}
-              onBlur={(event) => (event.target.style.borderColor = errors.phone ? '#f44336' : '#e0e0e0')}
-            />
-          </div>
-          <div>
-            <label htmlFor="email" style={labelStyle}>
-              {copy.emailLbl}
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              value={form.email}
-              onChange={(event) => setField('email', event.target.value)}
-              placeholder={copy.emailPh}
-              style={inputStyle()}
-              onFocus={(event) => (event.target.style.borderColor = '#42a5f5')}
-              onBlur={(event) => (event.target.style.borderColor = '#e0e0e0')}
-            />
-          </div>
-        </div>
-
-        <div style={{ marginBottom: 20 }}>
-          <label htmlFor="subject" style={labelStyle}>
-            {copy.subjectLbl}
-          </label>
-          <select
-            id="subject"
-            name="subject"
-            value={form.subject}
-            onChange={(event) => setField('subject', event.target.value)}
-            style={{ ...inputStyle(errors.subject), appearance: 'none', cursor: 'pointer' }}
-          >
-            <option value="">—</option>
-            {copy.subjects.map((subject) => (
-              <option key={subject} value={subject}>
-                {subject}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div style={{ marginBottom: 28 }}>
-          <label htmlFor="message" style={labelStyle}>
-            {copy.messageLbl}
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={form.message}
-            onChange={(event) => setField('message', event.target.value)}
-            placeholder={copy.messagePh}
-            rows={5}
-            style={{ ...inputStyle(errors.message), resize: 'vertical' }}
-            onFocus={(event) => (event.target.style.borderColor = '#42a5f5')}
-            onBlur={(event) => (event.target.style.borderColor = errors.message ? '#f44336' : '#e0e0e0')}
-          />
-        </div>
-
-        {sendError ? (
-          <p
+    <>
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer
+      />
+      <div>
+        <form onSubmit={submit} noValidate>
+          <div
             style={{
-              fontFamily: 'Fredoka, sans-serif',
-              fontSize: 15,
-              color: '#c62828',
-              background: '#ffebee',
-              borderRadius: 12,
-              padding: '12px 16px',
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: 20,
               marginBottom: 20,
             }}
           >
-            {copy.sendErrorMsg}
+            <div>
+              <label htmlFor="firstName" style={labelStyle}>
+                {copy.firstNameLbl}
+              </label>
+              <input
+                id="firstName"
+                name="firstName"
+                autoComplete="given-name"
+                value={form.firstName}
+                onChange={(event) => setField("firstName", event.target.value)}
+                placeholder={copy.firstNamePh}
+                style={inputStyle(errors.firstName)}
+                onFocus={(event) =>
+                  (event.target.style.borderColor = "#42a5f5")
+                }
+                onBlur={(event) =>
+                  (event.target.style.borderColor = errors.firstName
+                    ? "#f44336"
+                    : "#e0e0e0")
+                }
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName" style={labelStyle}>
+                {copy.lastNameLbl}
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                autoComplete="family-name"
+                value={form.lastName}
+                onChange={(event) => setField("lastName", event.target.value)}
+                placeholder={copy.lastNamePh}
+                style={inputStyle(errors.lastName)}
+                onFocus={(event) =>
+                  (event.target.style.borderColor = "#42a5f5")
+                }
+                onBlur={(event) =>
+                  (event.target.style.borderColor = errors.lastName
+                    ? "#f44336"
+                    : "#e0e0e0")
+                }
+              />
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: 20,
+              marginBottom: 20,
+            }}
+          >
+            <div>
+              <label htmlFor="phone" style={labelStyle}>
+                {copy.phoneLbl}
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                autoComplete="tel"
+                value={form.phone}
+                onChange={(event) => setField("phone", event.target.value)}
+                placeholder={copy.phonePh}
+                style={inputStyle(errors.phone)}
+                onFocus={(event) =>
+                  (event.target.style.borderColor = "#42a5f5")
+                }
+                onBlur={(event) =>
+                  (event.target.style.borderColor = errors.phone
+                    ? "#f44336"
+                    : "#e0e0e0")
+                }
+              />
+            </div>
+            <div>
+              <label htmlFor="email" style={labelStyle}>
+                {copy.emailLbl}
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                value={form.email}
+                onChange={(event) => setField("email", event.target.value)}
+                placeholder={copy.emailPh}
+                style={inputStyle()}
+                onFocus={(event) =>
+                  (event.target.style.borderColor = "#42a5f5")
+                }
+                onBlur={(event) => (event.target.style.borderColor = "#e0e0e0")}
+              />
+            </div>
+          </div>
+
+          <div style={{ marginBottom: 20 }}>
+            <label htmlFor="subject" style={labelStyle}>
+              {copy.subjectLbl}
+            </label>
+            <select
+              id="subject"
+              name="subject"
+              value={form.subject}
+              onChange={(event) => setField("subject", event.target.value)}
+              style={{
+                ...inputStyle(errors.subject),
+                appearance: "none",
+                cursor: "pointer",
+              }}
+            >
+              <option value="">—</option>
+              {copy.subjects.map((subject) => (
+                <option key={subject} value={subject}>
+                  {subject}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div style={{ marginBottom: 28 }}>
+            <label htmlFor="message" style={labelStyle}>
+              {copy.messageLbl}
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={form.message}
+              onChange={(event) => setField("message", event.target.value)}
+              placeholder={copy.messagePh}
+              rows={5}
+              style={{ ...inputStyle(errors.message), resize: "vertical" }}
+              onFocus={(event) => (event.target.style.borderColor = "#42a5f5")}
+              onBlur={(event) =>
+                (event.target.style.borderColor = errors.message
+                  ? "#f44336"
+                  : "#e0e0e0")
+              }
+            />
+          </div>
+
+          {sendError ? (
+            <p
+              style={{
+                fontFamily: "Fredoka, sans-serif",
+                fontSize: 15,
+                color: "#c62828",
+                background: "#ffebee",
+                borderRadius: 12,
+                padding: "12px 16px",
+                marginBottom: 20,
+              }}
+            >
+              {copy.sendErrorMsg}
+            </p>
+          ) : null}
+
+          <p
+            style={{
+              fontFamily: "Fredoka, sans-serif",
+              fontSize: 13,
+              color: "#999",
+              marginBottom: 20,
+            }}
+          >
+            {copy.required}
           </p>
-        ) : null}
 
-        <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: 13, color: '#999', marginBottom: 20 }}>
-          {copy.required}
-        </p>
+          <div
+            className="cf-turnstile"
+            data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            data-callback="onTurnstileSuccess"
+            data-expired-callback="onTurnstileExpired"
+            style={{ marginBottom: 20 }}
+          />
 
-        <CTAButton
-          label={sending ? '…' : copy.submitBtn}
-          onClick={() => undefined}
-          color="#ec407a"
-          buttonType="submit"
-        />
-      </form>
-    </div>
+          <CTAButton
+            label={sending ? "…" : copy.submitBtn}
+            onClick={() => undefined}
+            color="#ec407a"
+            buttonType="submit"
+          />
+        </form>
+      </div>
+    </>
   );
 }

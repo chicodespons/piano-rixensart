@@ -13,6 +13,37 @@ function escapeHtml(value: string) {
     .replace(/'/g, '&#39;');
 }
 
+async function verifyTurnstile(token: string, remoteIp?: string | null) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secret) {
+    // Fail closed: if the secret is missing in prod, don't silently accept spam.
+    console.error('TURNSTILE_SECRET_KEY is not set');
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret,
+          response: token,
+          ...(remoteIp ? { remoteip: remoteIp } : {}),
+        }),
+      },
+    );
+
+    const data = await response.json();
+    return data.success === true;
+  } catch (error) {
+    console.error('turnstile verification error', error);
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json().catch(() => null);
@@ -23,9 +54,23 @@ export async function POST(request: Request) {
     const email = String(body?.email ?? '').trim();
     const subject = String(body?.subject ?? '').trim();
     const message = String(body?.message ?? '').trim();
+    const turnstileToken = String(body?.turnstileToken ?? '').trim();
+
 
     if (!firstName || !lastName || !phone || !subject || !message) {
       return NextResponse.json({ error: 'missing_fields' }, { status: 400 });
+    }
+
+    if (!turnstileToken) {
+      return NextResponse.json({ error: 'missing_captcha' }, { status: 403 });
+    }
+
+     // Only present when traffic is proxied through Cloudflare (orange cloud).
+    const remoteIp = request.headers.get('cf-connecting-ip');
+
+    const isHuman = await verifyTurnstile(turnstileToken, remoteIp);
+    if (!isHuman) {
+      return NextResponse.json({ error: 'captcha_failed' }, { status: 403 });
     }
 
     const transporter = nodemailer.createTransport({

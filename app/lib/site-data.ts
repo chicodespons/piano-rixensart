@@ -137,7 +137,7 @@ export function buildKeywords(lang: Lang) {
 
   const localized = {
     fr: ['cours de piano à domicile', 'professeure de piano Rixensart', 'cours de musique Brabant-Wallon'],
-    nl: ['pianoles Rixensart', 'muziekles Brabant-Wallon', 'muzikale transcriptie België'],
+    nl: ['pianoles Rixensart','notenleer Rixensart', 'muziekles Brabant-Wallon', 'muzikale transcriptie België'],
     en: ['piano lessons in Belgium', 'music lessons for children and adults', 'private piano teacher Rixensart'],
   } satisfies Record<Lang, string[]>;
 
