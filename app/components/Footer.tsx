@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import NavigationLink from './NavigationLink';
 import { NAV_KEYS, T, type Lang, type PageKey } from '../lib/translations';
 
@@ -82,6 +83,15 @@ export default function Footer({ lang }: FooterProps) {
         </div>
         <div style={{ borderTop: '1px solid #2d2d4e', paddingTop: 20, textAlign: 'center', color: '#555', fontSize: 13 }}>
           © {new Date().getFullYear()} {ui.copyright}
+          <br />
+          <Link
+            href="https://dedycker.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#555', textDecoration: 'none' }}
+          >
+            Made by dedycker.dev
+          </Link>
         </div>
       </div>
     </footer>

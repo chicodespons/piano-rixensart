@@ -244,7 +244,7 @@ export default function HomePage({ lang }: HomePageProps) {
                 <div
                   style={{
                     fontFamily: "Fredoka, sans-serif",
-                    fontSize: 14,
+                    fontSize: 18,
                     marginTop: 6,
                     fontWeight: 600,
                   }}

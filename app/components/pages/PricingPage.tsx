@@ -88,6 +88,17 @@ export default function PricingPage({ lang }: PricingPageProps) {
               <div
                 style={{
                   fontFamily: "Fredoka, sans-serif",
+                  fontSize: 18,
+                  color: plan.textColor,
+                  fontWeight: 600,
+                }}
+              >
+                📚 {plan.lessons}
+              </div>
+
+              <div
+                style={{
+                  fontFamily: "Fredoka, sans-serif",
                   fontSize: 15,
                   color: plan.textColor,
                   opacity: 0.9,
@@ -96,16 +107,6 @@ export default function PricingPage({ lang }: PricingPageProps) {
                 }}
               >
                 🕐 {plan.slots}
-              </div>
-              <div
-                style={{
-                  fontFamily: "Fredoka, sans-serif",
-                  fontSize: 14,
-                  color: plan.textColor,
-                  opacity: 0.8,
-                }}
-              >
-                📚 {plan.lessons}
               </div>
             </article>
           ))}
