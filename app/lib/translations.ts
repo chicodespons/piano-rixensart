@@ -175,7 +175,7 @@ export const T = {
         {
           name: "Abonnement trimestriel · 1 h",
           badge: "",
-          slots: "lundi à vendredi:avant 16h et après 19h",
+          slots: "lundi à vendredi:avant 16h et après 19h, sauf le mercredi: avant 12h et après 19h",
           lessons: "10 cours par trimestre",
           price: "550€",
           unit: "/trimestre **",
@@ -185,7 +185,7 @@ export const T = {
         {
           name: "À la carte",
           badge: "",
-          slots: "lundi à vendredi:avant 16h et après 19h",
+          slots: "lundi à vendredi:avant 16h et après 19h, sauf le mercredi: avant 12h et après 19h",
           lessons: "Cours à l'unité",
           price: "60€",
           unit: "/heure ***",
@@ -396,7 +396,7 @@ export const T = {
         {
           name: "Driemaandelijks abonnement · 1 u",
           badge: "",
-          slots: "maandag tot en met vrijdag: vóór 16h en na 19h",
+          slots: "maandag tot en met vrijdag: vóór 16h en na 19h, behalve woensdag: vóór 12h en na 19h",
           lessons: "10 lessen per trimester",
           price: "550€",
           unit: "/trimester **",
@@ -406,7 +406,7 @@ export const T = {
         {
           name: "À la carte",
           badge: "",
-          slots: "maandag tot en met vrijdag: vóór 16h en na 19h",
+          slots: "maandag tot en met vrijdag: vóór 16h en na 19h, behalve woensdag: vóór 12h en na 19h",
           lessons: "Losse les",
           price: "60€",
           unit: "/uur ***",
@@ -616,7 +616,7 @@ export const T = {
         {
           name: "Quarterly subscription · 1 hr",
           badge: "",
-          slots: "Monday to Friday: before 4pm and after 7pm",
+          slots: "Monday to Friday: before 4pm and after 7pm, except Wednesday: before 12pm and after 7pm",
           lessons: "10 lessons per term",
           price: "550€",
           unit: "/term **",
@@ -626,7 +626,7 @@ export const T = {
         {
           name: "À la carte",
           badge: "",
-          slots: "Monday to Friday: before 4pm and after 7pm",
+          slots: "Monday to Friday: before 4pm and after 7pm, except Wednesday: before 12pm and after 7pm",
           lessons: "Single lesson",
           price: "60€",
           unit: "/hour ***",
