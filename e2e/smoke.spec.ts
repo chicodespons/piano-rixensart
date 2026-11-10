@@ -41,7 +41,7 @@ for (const lang of LANGS) {
       // Turnstile on the contact page keeps polling, so "networkidle" never comes there.
       const res = await page.goto(url, { waitUntil: pageKey === "contact" ? "load" : "networkidle" });
       expect(res?.status(), `HTTP status for ${url}`).toBeLessThan(400);
-      // Note: <html lang> is always "fr" (layout doesn't see ?lang=), so it isn't checked here.
+      await expect(page.locator("html"), "<html lang> follows ?lang=").toHaveAttribute("lang", lang);
       await expect(page.locator("body")).not.toContainText(BROKEN_PAGE);
       await expect(page.locator("h1, h2").first()).toBeVisible();
       if (pageKey === "contact") {
