@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { CTAButton } from "./shared";
 import Script from "next/script";
+import { trackEvent } from "../lib/umami-track";
 
 interface ContactFormCopy {
   firstNameLbl: string;
@@ -114,6 +115,7 @@ export default function ContactForm({ copy }: ContactFormProps) {
       }
 
       setSubmitted(true);
+      trackEvent("contact-form-sent", { subject: form.subject });
     } catch {
       setSendError(true);
       setTurnstileToken("");
