@@ -86,12 +86,15 @@ export default function ContactForm({ copy }: ContactFormProps) {
   };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // Always first: without it, an early return lets the browser post the form itself
+    // and reload the page (that happened when the Turnstile check wasn't done yet).
+    event.preventDefault();
+
     if (!turnstileToken) {
       setSendError(true);
       return;
     }
-    
-    event.preventDefault();
+
     const nextErrors = validate();
 
     if (Object.keys(nextErrors).length > 0) {
