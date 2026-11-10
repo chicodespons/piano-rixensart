@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { Bubblegum_Sans, Fredoka, Quicksand } from 'next/font/google';
 import './globals.css';
+import UmamiAnalytics from './components/UmamiAnalytics';
 import { BUSINESS_DETAILS, DEFAULT_LANGUAGE, SITE_NAME, SITE_URL, isLang } from './lib/site-data';
 
 const bubblegumSans = Bubblegum_Sans({
@@ -69,7 +70,10 @@ export default async function RootLayout({
 
   return (
     <html lang={htmlLang} className={`${bubblegumSans.variable} ${fredoka.variable} ${quicksand.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <UmamiAnalytics />
+      </body>
     </html>
   );
 }
