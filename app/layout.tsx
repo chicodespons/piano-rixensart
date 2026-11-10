@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { Bubblegum_Sans, Fredoka, Quicksand } from 'next/font/google';
 import './globals.css';
-import { BUSINESS_DETAILS, SITE_NAME, SITE_URL } from './lib/site-data';
+import { BUSINESS_DETAILS, DEFAULT_LANGUAGE, SITE_NAME, SITE_URL, isLang } from './lib/site-data';
 
 const bubblegumSans = Bubblegum_Sans({
   weight: '400',
@@ -59,13 +60,12 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang?: string }>;
 }>) {
-  const resolvedParams = await params;
-  const htmlLang = resolvedParams?.lang ?? 'fr';
+  // Set by proxy.ts from ?lang= (the root layout can't read search params itself).
+  const headerLang = (await headers()).get('x-site-lang');
+  const htmlLang = isLang(headerLang) ? headerLang : DEFAULT_LANGUAGE;
 
   return (
     <html lang={htmlLang} className={`${bubblegumSans.variable} ${fredoka.variable} ${quicksand.variable}`}>
